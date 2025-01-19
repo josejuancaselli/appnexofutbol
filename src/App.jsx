@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import LigasList from "./ligas/LigasList"
-import LigasDetail from "./ligas/LigasDetail"
-import EquiposDetail from "./equipos/EquiposDetail"
-import JugadoresDetail from "./jugadores/JugadoresDetail"
+import LigasList from "./components/ligas/LigasList"
+import LigasDetail from "./components/ligas/LigasDetail"
+import EquiposDetail from "./components/equipos/EquiposDetail"
+import JugadoresDetail from "./components/jugadores/JugadoresDetail"
 
 
 
