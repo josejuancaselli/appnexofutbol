@@ -18,9 +18,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Crud />} />
+          
           <Route path="/crud" element={<Crud />} />
-          <Route path="/crud/:id" element={<CrudLigas />} />
-          <Route path="/crud/:id/:crudEquipo" element={<CrudEquipo />} />
+          <Route path="/crud/:nombre_liga" element={<CrudLigas />} />
+          <Route path="/crud/:nombre_liga/:crudEquipo" element={<CrudEquipo />} />
+
           <Route path="/ligas" element={<LigasList />} />
           <Route path="/ligas/:nombreLiga" element={<LigasDetail />} />
           <Route path="/ligas/:nombreLiga/:nombreEquipo" element={<EquiposDetail />} />

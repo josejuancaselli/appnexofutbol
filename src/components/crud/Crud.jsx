@@ -3,6 +3,7 @@ import { db } from "../../firebase/configFirebase"
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 const Crud = () => {
     const { register, handleSubmit } = useForm();
     const [ligas, setLigas] = useState([]); // se almacenan las ligas
@@ -10,8 +11,6 @@ const Crud = () => {
     const crearLiga = (info) => {
         const nombre_liga = info
         const ligasRef = collection(db, "ligas");
-
-        
         addDoc(ligasRef, nombre_liga)
             .then(() => {
                 cargarLigas()
@@ -47,7 +46,7 @@ const Crud = () => {
                     {ligas.map((liga) => (
                         <li key={liga.id}>
                             <p>Liga {liga.nombre_liga}</p>
-                            <Link to={`/crud/${liga.id}`}>Agregar equipos</Link>
+                            <Link to={`/crud/${liga.nombre_liga}`}>Agregar equipos</Link>
                             <button>borrar liga</button>
                         </li>
                     ))}

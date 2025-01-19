@@ -14,13 +14,13 @@ const CrudEquipo = () => {
             <h1>{crudEquipo}</h1>
             <form onSubmit={handleSubmit(crearJugador)}>
                 <label>Nombre jugador:</label>
-                <input type="text" />
+                <input type="text" {...register ("nombre_jugador")}/>
 
                 <label>Edad:</label>
-                <input type="number" />
+                <input type="number" { ...register ("edad") }/>
 
                 <label>Posicion</label>
-                <input type="text" />
+                <input type="text" { ...register ("posicion") }/>
 
                 <button type="submit">Agregar</button>
             </form>

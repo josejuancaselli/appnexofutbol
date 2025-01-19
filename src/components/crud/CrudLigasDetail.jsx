@@ -4,7 +4,7 @@ import { db } from "../../firebase/configFirebase";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const CrudLigasDetail = ({ ligaActual }) => {
+const CrudLigasDetail = ({ ligaActual }) => { // me traje por props la liga actual para agregar equipos
     const [equipos, setEquipos] = useState([]);
     const { register, handleSubmit } = useForm();
 
@@ -12,7 +12,6 @@ const CrudLigasDetail = ({ ligaActual }) => {
         const equiposRef = collection(db, "equipos"); // se guarda la collection en esta variable
         const nombre_equipo = info.nombre_equipo // value especifico del "...register", en este caso el nombre del equipo
         const liga = ligaActual.nombre_liga // guardo el valor del nombre de la liga que me traje por props
-
         addDoc(equiposRef, { nombre_equipo, liga }) //se agrega el documento a la collection con los dos valores. Tiene que ser un objeto por eso las llaves
             .then(() => {
                 cargarEquipos() // disparo la funcion de cargar equipos
@@ -50,7 +49,7 @@ const CrudLigasDetail = ({ ligaActual }) => {
                             return (
                                 <div key={ equipo.id}>
                                     <li >{equipo.nombre_equipo}</li>
-                                    <Link to = {`/crud/${ligaActual.id}/${equipo.nombre_equipo}`}>Editar</Link>
+                                    <Link to = {`/crud/${ligaActual.nombre_liga}/${equipo.nombre_equipo}`}>Editar</Link>
                                     <button>Borrar</button>
                                 </div>
                             )
