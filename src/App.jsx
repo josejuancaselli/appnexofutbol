@@ -7,6 +7,7 @@ import JugadoresDetail from "./components/jugadores/JugadoresDetail"
 
 
 
+
 function App() {
 
 
@@ -15,6 +16,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
+          
           <Route path="/" element={<LigasList/>} />
           <Route path="/ligas/:nombreLiga" element={<LigasDetail/>} />
           <Route path="/ligas/:nombreLiga/:nombreEquipo" element={<EquiposDetail/>}/>
