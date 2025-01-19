@@ -22,7 +22,7 @@ const CrudEquipo = () => {
                 <label>Posicion</label>
                 <input type="text" />
 
-                <button type="submit">Guardar</button>
+                <button type="submit">Agregar</button>
             </form>
         </div>
     )

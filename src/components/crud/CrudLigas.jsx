@@ -2,10 +2,12 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
 import { db } from "../../firebase/configFirebase";
+import CrudLigasDetail from "./CrudLigasDetail";
 
 
 const CrudLigas = () => {
     const [ligas, setLigas] = useState([]); // se almacenan las ligas
+    
     const { id } = useParams()
 
 
@@ -18,40 +20,20 @@ const CrudLigas = () => {
                     { id: doc.id, ...doc.data() })
                 ));
             })
+
     }, [])
 
-    const editarEquipo = () => {
 
-    }
-
-
-    const ligaData = ligas.find((liga) => liga.id === id)
-
-
-
+const ligaActual = ligas.find((liga) => liga.id === id)
 
     return (
         <div>
             {
-                ligaData ?
-                    <div>
-                        <h1> {console.log(ligaData.equipo)} {ligaData.nombre_liga}</h1>
-                        <ul>
-                            {
-                                ligaData.equipo.map((equipos) => {
-                                    return (
-                                        <div key={equipos.nombre}>
-                                            <li >{equipos.nombre}</li>
-                                            <Link to = {`/crud/${ligaData.id}/${equipos.nombre}`}>editar equipo</Link>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </ul>
-                    </div>
-                    :
-                    <div>cargando... </div>
+                ligaActual ? <CrudLigasDetail ligaActual={ligaActual} /> 
+                :
+                <p>cargando...</p>
             }
+            
         </div>
     )
 }
