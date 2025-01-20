@@ -1,15 +1,16 @@
+// este componente muestra el inicio del CRUD, donde se agrega o se edita las ligas
+
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import { db } from "../../firebase/configFirebase";
 import CrudDetail from "./CrudDetail";
-
+import useLigas from "../../hooks/useLigas"
 
 const CrudInicio = () => {
 
     const [mostrar, setMostrar] = useState(false);
-    const [ligas, setLigas] = useState([]);
-
+    const {mostrarLigas, ligas} = useLigas()
     const mostrarDiv = () => {
         setMostrar(!mostrar)
     }
@@ -19,12 +20,7 @@ const CrudInicio = () => {
     }
 
     useEffect(() => {
-        const dataRef = collection(db, "ligas")
-        getDocs(dataRef)
-            .then((res) => {
-                const dataLiga = res.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-                setLigas(dataLiga)
-            })
+        mostrarLigas() //viene del hook useLigas
     }, [])
 
     return (

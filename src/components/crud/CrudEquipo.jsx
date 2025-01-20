@@ -1,3 +1,5 @@
+//este componente es donde se ve el detalle del equipo y te permite agregar jugadores
+
 import { Link, useParams } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { useEffect, useState } from "react";

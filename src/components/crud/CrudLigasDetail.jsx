@@ -1,35 +1,27 @@
+//este componente renderiza los equipos de la liga actual que estoy editando. Me permite agregar o quitar equipos, como tambien sumarle los puntos. Es el "/crud/nombre_liga"
+
+
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { useForm } from "react-hook-form"
 import { db } from "../../firebase/configFirebase";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useEquipos from "../../hooks/useEquipos"
 
 const CrudLigasDetail = ({ ligaActual }) => { // me traje por props la liga actual para agregar equipos
-    const [equipos, setEquipos] = useState([]);
+    // const [equipos, setEquipos] = useState([]);
+    const {equipos, mostrarEquipos, crearEquipos} = useEquipos()
     const { register, handleSubmit } = useForm();
+    const ppp = ligaActual.nombre_liga
+    
 
     const crearEquipo = (info) => { // como argumento va TODA la info que ingrese en el "...register" del form
-        const equiposRef = collection(db, "equipos"); // se guarda la collection en esta variable
-        const nombre_equipo = info.nombre_equipo // value especifico del "...register", en este caso el nombre del equipo
-        const liga = ligaActual.nombre_liga // guardo el valor del nombre de la liga que me traje por props
-        addDoc(equiposRef, { nombre_equipo, liga }) //se agrega el documento a la collection con los dos valores. Tiene que ser un objeto por eso las llaves
-            .then(() => {
-                cargarEquipos() // disparo la funcion de cargar equipos
-            })
+        crearEquipos(info, ppp);
+        mostrarEquipos(ppp)
     }
-
-    const cargarEquipos = () => {
-        const equiposRef = collection(db, "equipos");
-        getDocs(equiposRef) // se obtiene la collection de equipos que cargue anteriormente con "crearEquipo ()"
-            .then((res) => {
-                const equiposData = res.docs.map((doc) => ({ id: doc.id, ...doc.data() })) // convierte la respuesta en un array para ser utilizado
-                const equiposFiltrados = equiposData.filter((equipo) => equipo.liga === ligaActual.nombre_liga); // filtro los equipos para que solo me muestre los de la liga actual
-                setEquipos(equiposFiltrados); // actualizo el estado de equipos con los equipos filtrados
-            })
-    }
-
+    
     useEffect(() => {
-        cargarEquipos() // cuando el componente se monte, se ejecuta la funcion de cargar equipos
+        mostrarEquipos(ppp) // cuando el componente se monte, se ejecuta la funcion de cargar equipos
     }, [])
 
     return (
@@ -59,6 +51,10 @@ const CrudLigasDetail = ({ ligaActual }) => { // me traje por props la liga actu
                         })
                     }
                 </ul>
+
+                <div>
+                    
+                </div>
             </div>
         </>
     )

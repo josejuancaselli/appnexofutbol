@@ -1,9 +1,11 @@
+// este componente se encarga de mostrar las ligas en el "/crud" a medida que se van creando. Tambien sirve como DIV para el inicio
+
 import { Link, useParams } from "react-router-dom"
 
 
 const CrudDetail = ({ ligas }) => {
 
-    const { crud } = useParams()
+    const { crud } = useParams() //lo uso solo para mostrar el boton de borrar liga cuando estoy en editar ligas
 
     return (
         <div>
