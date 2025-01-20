@@ -13,12 +13,13 @@ const CrudLigas = () => {
     // const [ligas, setLigas] = useState([]); // se almacenan las ligas    
     const {mostrarLigas, ligas} = useLigas()
     const { nombre_liga } = useParams() //guardo en una varible el nombre de la liga
+    
 
     useEffect(() => {
         mostrarLigas()
     }, [])
 
-    const ligaActual = ligas.find((liga) => liga.nombre_liga === nombre_liga) // busco la liga actual usando el nombre de useParams() en el array de ligas. Lo cargo en la varibale. 
+    const ligaActual = nombre_liga
 
     return (
         <>

@@ -9,23 +9,22 @@ import { Link } from "react-router-dom";
 import useEquipos from "../../hooks/useEquipos"
 
 const CrudLigasDetail = ({ ligaActual }) => { // me traje por props la liga actual para agregar equipos
-    // const [equipos, setEquipos] = useState([]);
+    
     const {equipos, mostrarEquipos, crearEquipos} = useEquipos()
     const { register, handleSubmit } = useForm();
-    const ppp = ligaActual.nombre_liga
-    
+
     const crearEquipo = (info) => { // como argumento va TODA la info que ingrese en el "...register" del form
-        crearEquipos(info, ppp);
-        mostrarEquipos(ppp)
+        crearEquipos(info, ligaActual);
+        mostrarEquipos(ligaActual)
     }
 
     useEffect(() => {
-        mostrarEquipos(ppp) // cuando el componente se monte, se ejecuta la funcion de cargar equipos
+        mostrarEquipos(ligaActual) // cuando el componente se monte, se ejecuta la funcion de cargar equipos
     }, [])
 
     return (
         <>
-            <h1>{ligaActual.nombre_liga}</h1>
+            <h1>{ligaActual}</h1>
             <form onSubmit={handleSubmit(crearEquipo)}>
                 <label > nombre del equipo:</label>
                 <input type="text" {...register("nombre_equipo")} />
@@ -40,7 +39,7 @@ const CrudLigasDetail = ({ ligaActual }) => { // me traje por props la liga actu
                             return (
                                 <li key={equipo.id}>
                                     <p >{equipo.nombre_equipo}</p>
-                                    <Link to={`/crud/${ligaActual.nombre_liga}/${equipo.nombre_equipo}`}> Editar </Link> {/* link que me lleva al componente CrudEquipo*/}
+                                    <Link to={`/crud/${ligaActual}/${equipo.nombre_equipo}`}> Editar </Link> {/* link que me lleva al componente CrudEquipo*/}
                                     <button>Borrar</button>
                                     <label >puntos:</label>
                                     <input type="number" />
