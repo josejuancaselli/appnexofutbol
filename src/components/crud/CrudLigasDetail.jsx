@@ -14,12 +14,11 @@ const CrudLigasDetail = ({ ligaActual }) => { // me traje por props la liga actu
     const { register, handleSubmit } = useForm();
     const ppp = ligaActual.nombre_liga
     
-
     const crearEquipo = (info) => { // como argumento va TODA la info que ingrese en el "...register" del form
         crearEquipos(info, ppp);
         mostrarEquipos(ppp)
     }
-    
+
     useEffect(() => {
         mostrarEquipos(ppp) // cuando el componente se monte, se ejecuta la funcion de cargar equipos
     }, [])
@@ -45,16 +44,11 @@ const CrudLigasDetail = ({ ligaActual }) => { // me traje por props la liga actu
                                     <button>Borrar</button>
                                     <label >puntos:</label>
                                     <input type="number" />
-
                                 </li>
                             )
                         })
                     }
                 </ul>
-
-                <div>
-                    
-                </div>
             </div>
         </>
     )
