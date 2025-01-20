@@ -1,11 +1,13 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { db } from "../../firebase/configFirebase";
 import CrudLigasDetail from "./CrudLigasDetail";
 
 
+
 const CrudLigas = () => {
+    
     const [ligas, setLigas] = useState([]); // se almacenan las ligas    
     const { nombre_liga } = useParams() //guardo en una varible el nombre de la liga
 
@@ -21,12 +23,11 @@ const CrudLigas = () => {
     const ligaActual = ligas.find((liga) => liga.nombre_liga === nombre_liga) // busco la liga actual usando el nombre de useParams() en el array de ligas. Lo cargo en la varibale. 
 
     return (
-        <div>
+        <>
             {
                 ligaActual ? <CrudLigasDetail ligaActual={ligaActual} /> : <p>cargando...</p> // si existe la liga actual, cargo el componente CrudLigasDetail
             }
-
-        </div>
+        </>
     )
 }
 

@@ -33,7 +33,7 @@ const CrudLigasDetail = ({ ligaActual }) => { // me traje por props la liga actu
     }, [])
 
     return (
-        <div>
+        <>
             <h1>{ligaActual.nombre_liga}</h1>
             <form onSubmit={handleSubmit(crearEquipo)}>
                 <label > nombre del equipo:</label>
@@ -47,17 +47,20 @@ const CrudLigasDetail = ({ ligaActual }) => { // me traje por props la liga actu
                     {
                         equipos.map((equipo) => {
                             return (
-                                <div key={ equipo.id}>
-                                    <li >{equipo.nombre_equipo}</li>
-                                    <Link to = {`/crud/${ligaActual.nombre_liga}/${equipo.nombre_equipo}`}>Editar</Link>
+                                <li key={equipo.id}>
+                                    <p >{equipo.nombre_equipo}</p>
+                                    <Link to={`/crud/${ligaActual.nombre_liga}/${equipo.nombre_equipo}`}> Editar </Link> {/* link que me lleva al componente CrudEquipo*/}
                                     <button>Borrar</button>
-                                </div>
+                                    <label >puntos:</label>
+                                    <input type="number" />
+
+                                </li>
                             )
                         })
                     }
                 </ul>
             </div>
-        </div>
+        </>
     )
 }
 

@@ -2,39 +2,42 @@ import { useForm } from "react-hook-form";
 import { db } from "../../firebase/configFirebase"
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import CrudDetail from "./CrudDetail";
+
+
 
 const Crud = () => {
     const { register, handleSubmit } = useForm();
-    const [ligas, setLigas] = useState([]); // se almacenan las ligas
+    const [ligas, setLigas] = useState([]);
 
-    const crearLiga = (info) => {
-        const nombre_liga = info
-        const ligasRef = collection(db, "ligas");
-        addDoc(ligasRef, nombre_liga)
+
+
+    const agregarLiga = (info) => { // funcion para agregar datos a firebase. Uso la info del form
+        const nombre_liga = info // nombre de la liga que viene de lo que se escribe en el form
+        const ligasRef = collection(db, "ligas"); // cargo al collection en la variable
+        addDoc(ligasRef, nombre_liga) // creo el documento con addDoc, le agrego el nombre de la liga que viene "nombre_liga"
             .then(() => {
-                cargarLigas()
+                mostrarLigas() // uso la funcion de "mostrarligas()" para que renderice en el momento que agrego una liga
             })
     }
 
-    const cargarLigas = () => {
-        const ligaRef = collection(db, "ligas");
-        getDocs(ligaRef)
+    const mostrarLigas = () => { // funcion para mostrar las ligas en pantalla
+        const ligaRef = collection(db, "ligas"); // cargo la collection en esa variable
+        getDocs(ligaRef) // traigo la collection
             .then((res) => {
-                setLigas(
-                    res.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-                )
+                const ligasData = res.docs.map((doc) => ({ id: doc.id, ...doc.data() })) // convierto en data la collection y la guardo en una variable
+                setLigas(ligasData) // seteo "ligas" con la collection
             })
     }
 
     useEffect(() => {
-        cargarLigas()
+        mostrarLigas() // uso la funcion para mostrar las ligas de la collection en el momento que se cargue la pagina
     }, [])
 
     return (
 
-        <div>
-            <form onSubmit={handleSubmit(crearLiga)}>
+        <>
+            <form onSubmit={handleSubmit(agregarLiga)}>
                 <label> Nombre de la liga:</label>
                 <input type="text" {...register("nombre_liga")} />
                 <button type="submit">Crear</button>
@@ -42,17 +45,9 @@ const Crud = () => {
 
             <div>
                 <h2>Lista de ligas</h2>
-                <ul>
-                    {ligas.map((liga) => (
-                        <li key={liga.id}>
-                            <p>Liga {liga.nombre_liga}</p>
-                            <Link to={`/crud/${liga.nombre_liga}`}>Agregar equipos</Link>
-                            <button>borrar liga</button>
-                        </li>
-                    ))}
-                </ul>
+                <CrudDetail ligas={ligas} />
             </div>
-        </div>
+        </>
 
 
 
